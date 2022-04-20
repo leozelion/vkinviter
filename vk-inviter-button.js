@@ -1,3 +1,18 @@
+// ==UserScript==
+// @name         VK inviter
+// @namespace    http://tampermonkey.net/
+// @version      1.1
+// @description  Let's spam! 😆
+// @author       LZ (leozelion)
+// @match        https://vk.com/friends?act=invite&group_id=*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=vk.com
+// @source       https://github.com/leozelion/vkinviter
+// @updateURL    https://github.com/leozelion/vkinviter/raw/main/vk-inviter-button.js
+// @downloadURL  https://github.com/leozelion/vkinviter/raw/main/vk-inviter-button.js
+// @supportURL   https://github.com/leozelion/vkinviter/issues
+// @grant        none
+// ==/UserScript==
+
 var vkl = document.createElement('button'),
 	stat = document.createElement('pre'),
 	isOn = 0, hbody = 0, mode = 0, timeout = 0,
