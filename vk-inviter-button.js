@@ -22,8 +22,8 @@ var vkl = document.createElement('button'),
 	selector = '',
 	spamObj = {
 		i: 0,
-		invites: 0,
-		count: 0,
+		invites: 0, // отправлено
+		count: 0, // найдено
 		rows: [],
 		text: '',
 		parent: null
@@ -72,17 +72,19 @@ spamObj.click = function () {
 			vkl.onclick();
 			return;
 		}
-		// если скрипт уже нажимал кнопку, значит в контейнере прошлой кнопки должно быть слово "отправлено"
-        if (spamObj.parent && spamObj.parent.innerText.includes('Отправлено')) {
-			console.log('Уже отправлено. Пропускаем.');
-			// меняем кнопку на текст, чтобы на ней не зацикливаться
-			spamObj.parent.lastChild.innerHTML = "Ошибка доступа";
-		}
+		// проверяем offsetParent на случай, если кнопка нашлась скриптом, но по факту её уже нет
 		if (spamObj.rows[spamObj.i] && spamObj.rows[spamObj.i].offsetParent) {
 			let a = spamObj.rows[spamObj.i];
 			spamObj.parent = a.offsetParent;
+			// если скрипт уже нажимал кнопку, значит под кнопкой уже должно быть слово "отправлено"
+			if (spamObj.parent && spamObj.parent.innerText.includes('Отправлено')) {
+				console.log('Уже отправлено. Пропускаем.');
+				// меняем кнопку на текст, чтобы на ней не зацикливаться
+				spamObj.parent.lastChild.innerHTML = "Ошибка";
+				spamObj.invites--;
+			}
 			// на всякий случай проверяем, та ли кнопка
-			if (a.innerHTML === spamObj.text) {
+			else if (a.innerHTML === spamObj.text) {
 				a.scrollIntoView({ block: "center", behavior: "smooth" });
 				spamObj.invites++;
 				stat.innerHTML = (!mode ? "Выслано: " : "Отменено: ") + spamObj.invites + "\tНайдено: " + spamObj.count;
