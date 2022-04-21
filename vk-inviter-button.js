@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         VK inviter
 // @namespace    http://tampermonkey.net/
-// @version      1.2.1
+// @version      1.3
 // @description  Let's spam! 😆
 // @author       LZ (leozelion)
 // @match        https://vk.com/friends?act=invite&group_id=*
