@@ -1,16 +1,19 @@
 // ==UserScript==
 // @name         VK inviter
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  Let's spam! 😆
 // @author       LZ (leozelion)
 // @match        https://vk.com/friends?act=invite&group_id=*
+// @run-at       document-end
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=vk.com
 // @source       https://github.com/leozelion/vkinviter
 // @updateURL    https://github.com/leozelion/vkinviter/raw/main/vk-inviter-button.js
 // @downloadURL  https://github.com/leozelion/vkinviter/raw/main/vk-inviter-button.js
 // @supportURL   https://github.com/leozelion/vkinviter/issues
-// @grant        none
+// @grant window.close
+// @grant window.focus
+// @grant window.onurlchange
 // ==/UserScript==
 
 var vkl = document.createElement('button'),
@@ -63,10 +66,17 @@ spamObj.click = function () {
 		', i: ' + spamObj.i);
 	// если появляется капча, то кнопку не нажимаем, но функция рекурсивно продолжает вызываться
 	if (document.getElementsByClassName("captcha").length === 0) {
+		// если лимит исчерпан, в контейнере прошлой кнопки появляется сообщение
 		if (spamObj.parent && spamObj.parent.innerText.includes('Лимит приглашений исчерпан')) {
 			console.log('Limit reached. Stop.');
 			vkl.onclick();
 			return;
+		}
+		// если скрипт уже нажимал кнопку, значит в контейнере прошлой кнопки должно быть слово "отправлено"
+        if (spamObj.parent && spamObj.parent.innerText.includes('Отправлено')) {
+			console.log('Уже отправлено. Пропускаем.');
+			// меняем кнопку на текст, чтобы на ней не зацикливаться
+			spamObj.parent.lastChild.innerHTML = "Ошибка доступа";
 		}
 		if (spamObj.rows[spamObj.i] && spamObj.rows[spamObj.i].offsetParent) {
 			let a = spamObj.rows[spamObj.i];
