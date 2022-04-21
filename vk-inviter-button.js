@@ -157,14 +157,17 @@ document.getElementById('narrow_column').innerHTML += `
 			<div class="radiobtn on" onclick="changeMode(this, 0);" role="radio" aria-checked="true">Выслать приглашение</div>
 			<div class="radiobtn" onclick="changeMode(this, 1);" role="radio" aria-checked="false">Отменить приглашение</div>
 		</div>
-		<div class="ui_search_fltr_sel" id="spam-timeout">
-			<input class="step_slider" type="range" onchange="changeTimeout(this.value);" min="1" max="100">
+		<div class="ui_search_fltr_sel">
+			<input id="spam-timeout" class="step_slider" type="range" style="direction: rtl" min="1" max="100">
 		</div>
 	</div>`;
 changeMode(null, 0);
 changeTimeout(50);
 
 document.getElementById('spam-block').append(vkl, stat);
+document.getElementById('spam-timeout').addEventListener('change', function (e) {
+	changeTimeout(e.target.value);
+});
 
 // предупреждение пользователя перед закрытием/перезагрузкой вкладки
 window.addEventListener('beforeunload', function (evt) {
