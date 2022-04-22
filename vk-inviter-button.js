@@ -154,8 +154,8 @@ vkl.onclick = function () {
 document.getElementById('narrow_column').innerHTML += `
 	<div id="spam-block" class="page_block" style="padding: 14px 16px">
 		<div class="ui_search_fltr_sel" id="spam-mode">
-			<div class="radiobtn on" onclick="changeMode(this, 0);" role="radio" aria-checked="true">Выслать приглашение</div>
-			<div class="radiobtn" onclick="changeMode(this, 1);" role="radio" aria-checked="false">Отменить приглашение</div>
+			<div class="radiobtn on" role="radio" aria-checked="true">Выслать приглашение</div>
+			<div class="radiobtn" role="radio" aria-checked="false">Отменить приглашение</div>
 		</div>
 		<div class="ui_search_fltr_sel">
 			<input id="spam-timeout" class="step_slider" type="range" style="direction: rtl" min="1" max="100">
@@ -168,6 +168,10 @@ document.getElementById('spam-block').append(vkl, stat);
 document.getElementById('spam-timeout').addEventListener('change', function (e) {
 	changeTimeout(e.target.value);
 });
+let radios = document.getElementById('spam-mode').children;
+for (let i = 0; i < radios.length; i++) {
+	radios[i].addEventListener('click', function (e) { changeMode(e.target, i) });
+}
 
 // предупреждение пользователя перед закрытием/перезагрузкой вкладки
 window.addEventListener('beforeunload', function (evt) {
