@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         VK inviter
 // @namespace    http://tampermonkey.net/
-// @version      1.4
+// @version      1.5
 // @description  Let's spam! 😆
 // @author       LZ (leozelion)
 // @match        https://vk.com/friends?act=invite&group_id=*
@@ -40,11 +40,11 @@ function changeMode(e, m) {
 	});
 	mode = m; console.log('Mode changed to: ' + m);
 	if (!mode) { // выслать
-		selector = ".friends_controls > .button_wide:not(.secondary):not(.button_disabled)";
+		selector = ".friends_controls > .FlatButton--primary:not(.FlatButton--disabled):not(.FlatButton--locked)";
 		stat.innerHTML = "Выслано: 0\tНайдено: 0";
 		spamObj.text = "Выслать приглашение";
 	} else { // отменить
-		selector = ".friends_controls > .button_wide.secondary:not(.button_disabled)";
+		selector = ".friends_controls > .FlatButton--secondary:not(.FlatButton--disabled)";
 		stat.innerHTML = "Отменено: 0\tНайдено: 0";
 		spamObj.text = "Отменить приглашение";
 	}
