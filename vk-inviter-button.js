@@ -166,7 +166,7 @@ changeTimeout(50);
 
 document.getElementById('spam-block').append(vkl, stat);
 document.getElementById('spam-timeout').addEventListener('change', function (e) {
-	changeTimeout(e.target.value);
+	changeTimeout(Number(e.target.value));
 });
 let radios = document.getElementById('spam-mode').children;
 for (let i = 0; i < radios.length; i++) {
