@@ -84,7 +84,7 @@ spamObj.click = function () {
 				spamObj.invites--;
 			}
 			// на всякий случай проверяем, та ли кнопка
-			else if (a.innerHTML === spamObj.text) {
+			else if (a.innerText === spamObj.text) {
 				a.scrollIntoView({ block: "center", behavior: "smooth" });
 				spamObj.invites++;
 				stat.innerHTML = (!mode ? "Выслано: " : "Отменено: ") + spamObj.invites + "\tНайдено: " + spamObj.count;
